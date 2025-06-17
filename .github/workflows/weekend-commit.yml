@@ -22,9 +22,8 @@ jobs:
         with:
           node-version: 20
 
-      - name: Enable ESM module type
-        run: echo '{ "type": "module" }' > package.json
-
+- name: Enable ESM module type
+  run: echo "{ \"type\": \"module\" }" > package.json
       - name: Install dependencies
         run: npm install jsonfile moment simple-git
 
