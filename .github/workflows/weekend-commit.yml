@@ -21,12 +21,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Install dependencies
+        run: npm install jsonfile moment moment-timezone simple-git
 
       - name: Enable ESM module type
-        run: echo "{ \"type\": \"module\" }" > package.json
-        
-      - name: Install dependencies
-        run: npm install jsonfile moment simple-git
+        run: |
+          echo "{ \"type\": \"module\" }" > package.json
 
       - name: Run commit script
         run: node index.js

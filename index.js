@@ -1,29 +1,29 @@
 import jsonfile from "jsonfile";
-import moment from "moment";
+import moment from "moment-timezone";
 import simpleGit from "simple-git";
 import fs from "fs";
 
 const dataPath = "./data.json";
 const git = simpleGit();
-
-// Jumlah commit dalam satu hari (supaya hijau gelap/full)
 const commitsPerDay = 30;
 
-// Fungsi untuk waktu acak dalam sehari
+// Ambil tanggal hari ini dalam zona waktu Jakarta
+const today = moment().tz("Asia/Jakarta");
+const day = today.day(); // 0 = Minggu, 6 = Sabtu
+
 function getRandomTime(index) {
-  const hour = Math.floor(index / 2); // Biarkan tersebar sepanjang hari
+  const hour = Math.floor(index / 2); // Sebar sepanjang hari
   const minute = Math.floor(Math.random() * 60);
   const second = Math.floor(Math.random() * 60);
-  return moment().hour(hour).minute(minute).second(second);
-}
 
-const today = moment();
-const day = today.day(); // 0 (Minggu) - 6 (Sabtu)
+  // Ambil clone dari hari ini agar tidak pakai waktu sekarang (UTC)
+  return today.clone().hour(hour).minute(minute).second(second);
+}
 
 async function commitMultipleTimes() {
   for (let i = 0; i < commitsPerDay; i++) {
     const commitTime = getRandomTime(i);
-    const formattedDate = commitTime.format();
+    const formattedDate = commitTime.format(); // ISO format
 
     const data = { date: formattedDate };
 
@@ -32,12 +32,15 @@ async function commitMultipleTimes() {
     await git.commit(`Auto commit #${i + 1} on ${formattedDate}`, {
       "--date": formattedDate,
     });
+
     console.log(`✅ Commit #${i + 1} on ${formattedDate}`);
   }
 
   await git.push();
   console.log(`🚀 Pushed ${commitsPerDay} commits!`);
 }
+
+console.log(`📅 Hari ini (Jakarta): ${today.format("dddd, YYYY-MM-DD HH:mm:ss")}`);
 
 if (day === 0 || day === 6) {
   commitMultipleTimes();
