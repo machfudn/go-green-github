@@ -27,13 +27,13 @@ jobs:
         run: |
           echo "{ \"type\": \"module\" }" > package.json
 
-      - name: Run commit script
-        run: node index.js
-
       - name: Set Git Identity
         run: |
           git config --global user.name "machfudin37"
           git config --global user.email "machfudin37@users.noreply.github.com"
+
+      - name: Run commit script
+        run: node index.js
 
       - name: Push commits
         run: |
