@@ -23,13 +23,13 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install jsonfile moment simple-git
+        run: npm install jsonfile moment simple-git fs
 
       - name: Enable ESM for Node.js
         run: echo '{ "type": "module" }' > package.json
 
       - name: Run commit script
-        run: node weekend-commit.js
+        run: node index.js
 
       - name: Push commits
         run: |
