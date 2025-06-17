@@ -9,15 +9,11 @@
 - **Javascipt**
 - **Yaml**
 
----
-
 ## Library
 
 - **jsonfile**
 - **moment-timezone**
 - **simple-git**
-
----
 
 ### 👤 Author
 

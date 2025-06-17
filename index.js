@@ -4,7 +4,7 @@ import simpleGit from "simple-git";
 
 const dataPath = "./data.json";
 const git = simpleGit();
-const commitsPerDay = 30;
+const commitsPerDay = 20; // Jumlah commit per hari
 
 const today = moment().tz("Asia/Jakarta");
 
