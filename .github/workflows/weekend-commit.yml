@@ -1,0 +1,40 @@
+name: Weekend Commit
+
+on:
+  schedule:
+    - cron: "0 6 * * 6" # Sabtu jam 6 pagi UTC (13.00 WIB)
+    - cron: "0 6 * * 0" # Minggu jam 6 pagi UTC (13.00 WIB)
+  workflow_dispatch:
+
+permissions:
+  contents: write # 🔑 WAJIB untuk bisa push ke repo
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install jsonfile moment simple-git
+
+      - name: Enable ESM for Node.js
+        run: echo '{ "type": "module" }' > package.json
+
+      - name: Run commit script
+        run: node weekend-commit.js
+
+      - name: Push commits
+        run: |
+          git config user.name "Machfudin"
+          git config user.email "machfudin37@users.noreply.github.com"
+          git add .
+          git commit -m "Auto commit from GitHub Actions" || echo "Nothing to commit"
+          git push
