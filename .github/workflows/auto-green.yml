@@ -1,9 +1,8 @@
-name: Weekend Commit
+name: Auto Green
 
 on:
   schedule:
-    - cron: "0 6 * * 6" # Sabtu jam 6 pagi UTC
-    - cron: "0 6 * * 0" # Minggu jam 6 pagi UTC
+    - cron: "0 6 * * *" # Setiap hari jam 6 pagi UTC (13:00 WIB)
   workflow_dispatch:
 
 permissions:
