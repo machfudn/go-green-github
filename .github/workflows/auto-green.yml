@@ -2,7 +2,7 @@ name: Auto Green
 
 on:
   schedule:
-    - cron: "0 6 * * *" # Setiap hari jam 6 pagi UTC (13:00 WIB)
+    - cron: '0 6 * * *' # Setiap hari jam 6 pagi UTC (13:00 WIB)
   workflow_dispatch:
 
 permissions:
@@ -29,7 +29,7 @@ jobs:
 
       - name: Set Git Identity
         run: |
-          git config --global user.name "machfudin37"
+          git config --global user.name "machfudn"
           git config --global user.email "machfudin37@users.noreply.github.com"
 
       - name: Run commit script
