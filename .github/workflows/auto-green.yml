@@ -29,8 +29,8 @@ jobs:
 
       - name: Set Git Identity
         run: |
-          git config --global user.name "machfudn"
-          git config --global user.email "machfudin37@users.noreply.github.com"
+          git config --global user.name "Machfudin"
+          git config --global user.email "machfudn@users.noreply.github.com"
 
       - name: Run commit script
         run: node index.js
