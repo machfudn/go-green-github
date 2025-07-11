@@ -20,16 +20,24 @@ function getRandomTime(index) {
 async function commitMultipleTimes() {
   for (let i = 0; i < commitsPerDay; i++) {
     const commitTime = getRandomTime(i);
-    const formattedDate = commitTime.format();
 
-    const data = { date: formattedDate };
+    // formattedDate untuk opsi --date git (tetap default moment.format())
+    const gitDateFormatted = commitTime.format();
+
+    // formattedDate untuk pesan commit (lebih mudah dibaca)
+    // Contoh: '2025-07-11 18:55:48'
+    const commitMessageFormattedDate = commitTime.format('YYYY-MM-DD HH:mm:ss');
+
+    const data = { date: gitDateFormatted }; // Simpan format asli jika itu yang Anda inginkan di JSON
     await jsonfile.writeFile(dataPath, data, { spaces: 2 });
     await git.add([dataPath]);
-    await git.commit(`Auto commit #${i + 1} on ${formattedDate}`, {
-      '--date': formattedDate,
+
+    // Pesan commit menggunakan commitMessageFormattedDate
+    await git.commit(`Auto commit #${i + 1} on ${commitMessageFormattedDate}`, {
+      '--date': gitDateFormatted, // Opsi --date tetap menggunakan format asli untuk akurasi git
     });
 
-    console.log(`✅ Commit #${i + 1} on ${formattedDate}`);
+    console.log(`✅ Commit #${i + 1} on ${commitMessageFormattedDate}`);
   }
 
   await git.push();
