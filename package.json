@@ -1,1 +1,21 @@
-{ "type": "module" }
+{
+  "name": "go-green-github",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Auto-commit bot untuk GitHub contribution graph",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "node --import tsx --test test/*.test.ts"
+  },
+  "dependencies": {
+    "simple-git": "^3.36.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2"
+  }
+}

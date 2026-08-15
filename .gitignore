@@ -1,2 +1,4 @@
-# vscode setting feature
+node_modules/
+dist/
+test/
 .marscode
