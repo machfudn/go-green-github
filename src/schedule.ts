@@ -115,6 +115,7 @@ export function generateCommitTimes(
   parts: LocalParts,
   count: number,
   cfg: ScheduleConfig,
+  now?: Date,
 ): Date[] {
   if (count <= 0) return [];
   const { startHour, endHour, timeZone } = cfg;
@@ -134,12 +135,24 @@ export function generateCommitTimes(
     0,
     timeZone,
   );
+
+  const first = startHour * 3600;
+  let hi = first + slots - 1;
+  if (now) {
+    const np = toLocalParts(now, timeZone);
+    const nowSec = Math.max(0, np.hour * 3600 + np.minute * 60 + np.second);
+    hi = Math.min(hi, nowSec);
+  }
+  // Kalau now masih sebelum START_HOUR, geser window ke bawah supaya
+  // ujungnya menyentuh now (lebar tetap); tidak ada timestamp masa depan.
+  const lo = Math.max(0, Math.min(first, hi - slots + 1));
+  const available = hi - lo + 1;
+  const target = Math.min(count, available);
+
   const chosen = new Set<number>();
   let guard = 0;
-  while (chosen.size < count && guard < 100_000) {
-    const second =
-      startHour * 3600 + Math.floor(Math.random() * slots);
-    chosen.add(second);
+  while (chosen.size < target && guard < 100_000) {
+    chosen.add(lo + Math.floor(Math.random() * available));
     guard++;
   }
 

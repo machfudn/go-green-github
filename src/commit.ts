@@ -9,7 +9,11 @@ import type { Config } from './config.js';
 
 export interface GitLike {
   add(paths: string[]): Promise<unknown>;
-  commit(message: string, options: Record<string, string>): Promise<unknown>;
+  commit(
+    message: string,
+    options: Record<string, string>,
+    env?: Record<string, string>,
+  ): Promise<unknown>;
   push(): Promise<unknown>;
 }
 
@@ -30,7 +34,7 @@ export async function runOnce(
 ): Promise<RunResult> {
   const local = toLocalParts(now, cfg.timeZone);
   const count = pickCount(local, cfg.holidays, cfg);
-  const times = generateCommitTimes(local, count, cfg);
+  const times = generateCommitTimes(local, count, cfg, now);
 
   for (let i = 0; i < times.length; i++) {
     const time = times[i];
@@ -41,6 +45,7 @@ export async function runOnce(
     await git.commit(
       `Auto commit #${i + 1} on ${formatReadable(time, cfg.timeZone)}`,
       { '--date': instant },
+      { GIT_COMMITTER_DATE: instant },
     );
   }
 
