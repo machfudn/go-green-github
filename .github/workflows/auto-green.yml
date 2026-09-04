@@ -10,7 +10,7 @@ permissions:
 
 env:
   GIT_USER: Machfudin
-  GIT_EMAIL: 9060777+machfudn@users.noreply.github.com
+  GIT_EMAIL: 90607773+machfudn@users.noreply.github.com
   WEEKDAY_MIN: 5
   WEEKDAY_MAX: 10
   WEEKEND_MIN: 1

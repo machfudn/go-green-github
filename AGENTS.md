@@ -19,7 +19,7 @@ npm run dev     # tsx src/index.ts
 - **`test/`, `dist/`, and `node_modules/` are gitignored by design.** `test/` is deliberately excluded from git (owner's choice). Never re-track `node_modules` — it was tracked once and caused mass merge conflicts.
 - TS source imports use `.js` extensions (`import './schedule.js'`), required by `NodeNext` ESM + `tsc`. Tests import `../src/xxx.ts` directly (tsx). Don't "fix" either.
 - `holidays.json` is manually maintained per year from the official SKB 3 Menteri (setneg.go.id); there is no automation. Missing year => every weekday gets weekday counts.
-- `GIT_EMAIL` (`9060777+machfudn@users.noreply.github.com`) must stay a valid GitHub noreply, or commits won't attribute to the graph.
+- `GIT_EMAIL` (`90607773+machfudn@users.noreply.github.com`) must stay a valid GitHub noreply, or commits won't attribute to the graph.
 - Commit scheduling is env-driven (defaults 5–10 weekdays, 1–3 weekends/holidays, window 8–17). Set via workflow `env:`, not hardcoded.
 - Some files carry a spurious `644 → 755` mode change from an old merge-conflict session. Harmless; don't churn on it.
 
