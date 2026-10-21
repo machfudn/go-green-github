@@ -30,6 +30,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -41,9 +42,6 @@ jobs:
         run: |
           git config user.name "$GIT_USER"
           git config user.email "$GIT_EMAIL"
-
-      - name: Random delay
-        run: sleep $((RANDOM % 18000)) # 0-5 jam, waktu push jadi acak
 
       - name: Run commit script
         run: node dist/index.js
