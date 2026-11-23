@@ -13,7 +13,14 @@ const git: GitLike = {
   add: (paths) => g.add(paths),
   commit: (message, options, commitEnv) =>
     g.env(commitEnv ?? {}).commit(message, options),
-  push: () => g.push(),
+  push: async () => {
+    try {
+      await g.pull(['--rebase', '-X', 'theirs']);
+    } catch (err) {
+      console.warn('Peringatan: Gagal melakukan pull --rebase sebelum push:', err);
+    }
+    return g.push();
+  },
 };
 const writer: Writer = { writeFile };
 
